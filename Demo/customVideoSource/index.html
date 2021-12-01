@@ -97,6 +97,7 @@
         <p class="join-info-text">Switch video stream</p>
         <select class="form-select" name="stream" id="stream-source">
           <option value="camera">Camera</option>
+          <option value="funky">Funky</option>
           <option value="mp4" selected="selected">Sample.mp4</option>
         </select>
       </div>
@@ -112,6 +113,29 @@
 
     </div>
   </form>
+
+  <!-- hidden canvas for generating a custom input-->
+  <canvas id="canid" width="480" height="360" style="display:none;"> </canvas>
+  <!-- a function to produce the funky patterns on the canvas
+      runs every 50ms to ensure video changing regularlay
+  -->
+
+  
+  <script>
+    function funky(){
+            var randomColor = Math.floor(Math.random()*16777215).toString(16);
+            var canv=document.getElementById("canid");
+              var ctx = document.getElementById("canid").getContext('2d');
+              ctx.fillStyle = '#'+randomColor;
+            ctx.beginPath();
+                ctx.moveTo(Math.random()*canv.width, Math.random()*canv.height);
+                ctx.lineTo(Math.random()*canv.width, Math.random()*canv.height);
+                ctx.lineTo(Math.random()*canv.width, Math.random()*canv.height);
+                ctx.fill();
+    }
+    setInterval(funky,50);
+</script>
+
   <!--
     This local media splayer is enabled when the user has successfully joined a Video Call channel.
   -->

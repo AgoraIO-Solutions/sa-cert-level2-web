@@ -123,8 +123,14 @@ async function join() {
       AgoraRTC.createCameraVideoTrack()
     ]);
 
-    // Publish the local video and audio tracks to the channel.
-    
+  } else if  (currentStream == "funky") {
+    var stream=document.getElementById("canid").captureStream(30);
+    [options.uid, localTracks.videoTrack ] = await Promise.all([
+      // Join the channel.
+      client.join(options.appid, options.channel, options.token || null, options.uid || null),
+      // Create tracks to the customized video source.
+      AgoraRTC.createCustomVideoTrack({mediaStreamTrack:stream.getVideoTracks()[0]})
+    ]);    
   } else {
   
       var videoFromDiv = document.getElementById("sample-video");
